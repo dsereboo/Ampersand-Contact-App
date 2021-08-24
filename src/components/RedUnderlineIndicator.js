@@ -1,11 +1,15 @@
 import React from "react"
 import { View,StyleSheet, Text } from "react-native"
+import { useNavigation } from "@react-navigation/native"
 
 
-const RedUnderlineIndicator=({text})=>{
+const RedUnderlineIndicator=({text,nav})=>{
+
+    const navigation=useNavigation()
+
     return(
         <View style={styles.container}>
-            <Text style={styles.text}>{text}</Text>
+            <Text onPress={()=>navigation.navigate(nav)} style={styles.text}>{text}</Text>
             <View style={styles.horizontalLine}></View>
         </View>
     )

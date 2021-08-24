@@ -14,7 +14,7 @@ function WelcomeHome(){
                 <Text style={styles.title}>CONTACTS</Text>
             </View>
             <View style={styles.indicator}>
-                <RedUnderlineIndicator text="GET STARTED"/>
+                <RedUnderlineIndicator nav="WelcomeGuide" text="GET STARTED"/>
             </View>
         </View>
     )

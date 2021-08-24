@@ -1,12 +1,9 @@
 import React from 'react';
-import WelcomeGuide from './src/screens/WelcomeGuide';
-import WelcomeHome from './src/screens/WelcomeHome';
-
-
+import ApplicationContainer from './src/navigation/navigation';
 
 export default function App() {
   return (
-      <WelcomeGuide/>
+      <ApplicationContainer/>
   );
 }
 
