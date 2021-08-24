@@ -4,7 +4,7 @@ import { View,StyleSheet, Text } from "react-native"
 
 const RedUnderlineIndicator=({text})=>{
     return(
-        <View>
+        <View style={styles.container}>
             <Text style={styles.text}>{text}</Text>
             <View style={styles.horizontalLine}></View>
         </View>
@@ -12,8 +12,11 @@ const RedUnderlineIndicator=({text})=>{
 }
 
 const styles=StyleSheet.create({
+    container:{
+        alignItems:"center"
+    },
     horizontalLine:{
-        width:100,
+        width:90,
         height:2,
         backgroundColor:"#e60000",
     },
