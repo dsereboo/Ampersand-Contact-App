@@ -5,6 +5,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import WelcomeGuide from "../screens/WelcomeGuide";
 import WelcomeHome from "../screens/WelcomeHome";
+import Login from "../screens/Login";
+
 
 const Stack= createStackNavigator()
 
@@ -28,6 +30,17 @@ function ApplicationContainer(){
                         headerTransparent:true,
                         title:"",
                         headerTintColor:"#fff"
+                    }}
+                />
+                <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    options={{
+                        title:"Sign In",
+                        headerTintColor:"#fff",
+                        headerStyle:{
+                            backgroundColor:"#ff4d4d"
+                        }
                     }}
                 />
             </Stack.Navigator>

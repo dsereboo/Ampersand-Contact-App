@@ -1,6 +1,8 @@
+
 import React from "react"
 import { Image, StyleSheet, Text, View } from "react-native"
 import RedUnderlineIndicator from "../components/RedUnderlineIndicator"
+
 
 
 function WelcomeGuide(){
@@ -19,8 +21,8 @@ function WelcomeGuide(){
                     </Text>
                 </View>
                 <View style={styles.indicatorContainer}>
-                    <RedUnderlineIndicator text="REGISTER" />
-                    <RedUnderlineIndicator text="SIGN IN" />
+                    <RedUnderlineIndicator nav="" text="REGISTER" />
+                    <RedUnderlineIndicator nav="Login" text="SIGN IN" />
                 </View>
             </View>
         </View>
