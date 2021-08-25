@@ -1,5 +1,6 @@
 import React, { useState } from "react"
-import { ScrollView, StyleSheet, Text, TextInput, View } from "react-native"
+import * as ImagePicker from 'expo-image-picker';
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 import RedButton from "../components/RedButton"
 import { AntDesign } from '@expo/vector-icons';
 
@@ -18,15 +19,28 @@ function Register(){
         setDetails({...details, [identity]:text})
     }
 
+    let openImagePickerAsync = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+        if (permissionResult.granted === false) {
+          alert("Permission to access camera roll is required!");
+          return;
+        }
+    
+        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+        console.log(pickerResult);
+      }
+
    
     return(
         <View style={styles.container}>
-            <View style={styles.profilePhoto}>
-                <AntDesign name="user" size={54} color="#ff4d4d" />
+             {/* <ScrollView> */}
+            <TouchableOpacity onPress={openImagePickerAsync} style={styles.profilePhoto}>
+                <AntDesign  name="user" size={54} color="#ff4d4d" />
                 <Text style={styles.profileText}>ADD PROFILE PHOTO</Text>
-            </View>
+            </TouchableOpacity>
             <View style={styles.form}>
-                <ScrollView>
+               <ScrollView>
                 <View style={styles.inputRow}>
                     <Text>Full Name</Text>
                     <TextInput
@@ -92,6 +106,7 @@ function Register(){
             <View style={styles.buttonContainer}>
                 <RedButton text="REGISTER" />
             </View>
+            {/* </ScrollView> */}
         </View>
     )
 }
@@ -102,6 +117,7 @@ const styles=StyleSheet.create({
     },
     profilePhoto:{
         flex:3,
+        // height:180,
         justifyContent:"center",
         alignItems:"center",
         backgroundColor:"#E8E8E8"
