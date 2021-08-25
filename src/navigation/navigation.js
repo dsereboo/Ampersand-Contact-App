@@ -9,6 +9,8 @@ import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Home from "../screens/Home";
 import ProfileIcon from "../components/ProfileIcon";
+import Profile from "../screens/Profile";
+
 
 
 
@@ -72,6 +74,17 @@ function ApplicationContainer(){
                         headerRight:()=>{
                             return(<ProfileIcon/>)
                         }
+                    }}
+                />
+                 <Stack.Screen
+                    name="Profile"
+                    component={Profile}
+                    options={{
+                        title:"My Profile",
+                        headerTintColor:"#fff",
+                        headerStyle:{
+                            backgroundColor:"#ff4d4d"
+                        },
                     }}
                 />
             </Stack.Navigator>
