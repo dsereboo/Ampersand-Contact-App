@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import * as ImagePicker from 'expo-image-picker';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 import RedButton from "../components/RedButton"
 import { AntDesign } from '@expo/vector-icons';
 
 function Register(){
-
+    
+    const [image,setImage]=useState(null)
     const[details, setDetails]=useState({
         fullname:"",
         email:"",
@@ -27,18 +28,38 @@ function Register(){
           return;
         }
     
-        let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        console.log(pickerResult);
+        let pickerResult = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4, 4],
+            quality: 1,
+        });
+
+        if (!pickerResult.cancelled) {
+            setImage(pickerResult.uri);
+          }
       }
+
+      console.log(image)
 
    
     return(
         <View style={styles.container}>
-             {/* <ScrollView> */}
-            <TouchableOpacity onPress={openImagePickerAsync} style={styles.profilePhoto}>
+             {/* <ScrollView> */}     
+            {image?
+                <View style={styles.profilePhotoLoaded}>
+                    <Image style={styles.image} source={{uri:image}} />
+                </View>
+                :
+                <TouchableOpacity onPress={openImagePickerAsync} style={styles.profilePhoto}>
+                    <AntDesign name="user" size={54} color="#ff4d4d" />
+                    <Text style={styles.profileText}>ADD PROFILE PHOTO</Text>
+                </TouchableOpacity>
+                
+            }
+            {/* <TouchableOpacity onPress={openImagePickerAsync} style={styles.profilePhoto}>
                 <AntDesign  name="user" size={54} color="#ff4d4d" />
                 <Text style={styles.profileText}>ADD PROFILE PHOTO</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <View style={styles.form}>
                <ScrollView>
                 <View style={styles.inputRow}>
@@ -121,6 +142,13 @@ const styles=StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         backgroundColor:"#E8E8E8"
+    },
+    profilePhotoLoaded:{
+        flex:3,
+    },
+    image:{
+        width:"100%",
+        height:"100%",
     },
     profileText:{
         color:"#ff4d4d",
