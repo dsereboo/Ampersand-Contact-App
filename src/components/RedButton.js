@@ -1,10 +1,14 @@
 import React from "react"
 import { StyleSheet, TouchableOpacity, Text } from "react-native"
+import { useNavigation } from "@react-navigation/native"
 
-function RedButton(){
+function RedButton({text, onPress}){
+
+    const navigation=useNavigation()
+
     return(
-        <TouchableOpacity style={styles.container}>
-            <Text style={styles.text}>SIGN IN</Text>
+        <TouchableOpacity style={styles.container}  onPress={onPress}>
+            <Text style={styles.text}>{text}</Text>
         </TouchableOpacity>
     )
 }

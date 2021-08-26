@@ -5,8 +5,10 @@ export const createEmailAccount=(email,password)=>{
         try {
             //Access auth object of firebase which has the function to create a user
             const user =await firebase.auth().createUserWithEmailAndPassword(email, password)
+            console.log(user)
             dispatch(loggedIn(user))
         } catch (error) {
+            console.log(error)
             dispatch(registerError(error.message))
         }
     }
@@ -20,7 +22,7 @@ export const loginEmailAccount=(email,password)=>{
             dispatch(loggedIn(user))
         } catch (error) {
             console.log(error)
-            dispatch(loginError(error.message))
+            // dispatch(loginError(error.message))
         }
     }
 }
@@ -30,7 +32,7 @@ export const logout=()=>{
         try {
             await firebase.auth().signOut()
             dispatch(loggedOut())
-            // console.log("clicked")
+            console.log("clicked")
         } catch (error) {
             console.log(error)    
         }
@@ -44,7 +46,7 @@ function loggedIn(user){
     }
 }
 
-function loggedOut(user){
+function loggedOut(){
     return{
         type:"LOGGED_OUT",
     }
@@ -53,7 +55,7 @@ function loggedOut(user){
 function registerError(error){
     return{
         type:"REGISTER_ERROR",
-        payload:"error",
+        payload:error,
     }
 }
 

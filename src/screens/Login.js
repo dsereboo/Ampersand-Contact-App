@@ -1,10 +1,14 @@
 import React,{useState} from "react"
-import {Image, StyleSheet, Text, TextInput, View } from "react-native"
+import {Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native"
+import { connect } from "react-redux"
 import RedButton from "../components/RedButton"
 import RedUnderlineIndicator from "../components/RedUnderlineIndicator"
+import { loginEmailAccount } from "../redux/actions/authActions"
 
 
-function Login(){
+
+
+function Login({loginEmailAccount}){
 
     const[details,setDetails]=useState({
         email:"",
@@ -14,6 +18,13 @@ function Login(){
     const handleChange=(identity,text)=>{ 
         setDetails({...details, [identity]:text})
     }
+
+    const handleSubmit=()=>{
+        loginEmailAccount(details.email, details.password)
+    }
+
+    console.log(details)
+
     return(
         <View style={styles.container}>
             <View style={styles.imageContainer}>
@@ -41,8 +52,11 @@ function Login(){
                         value={details.password}
                     />
                 </View>
-                <View style={styles.buttonContainer}>
-                    <RedButton nav="Home" text="SIGN IN" />
+                <View onPress={handleSubmit} style={styles.buttonContainer}>
+                    <RedButton 
+                        text="SIGN IN" 
+                        onPress={handleSubmit} 
+                    />
                 </View>
                 <View style={styles.resetPasswordContainer}>
                     <Text style={styles.text}>Forgot?</Text>
@@ -98,4 +112,8 @@ const styles=StyleSheet.create({
     }
 })
 
-export default Login
+const mapDispatchToProps={
+    loginEmailAccount:loginEmailAccount
+}
+
+export default connect(null, mapDispatchToProps)(Login)
