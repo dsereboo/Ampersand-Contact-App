@@ -71,6 +71,7 @@ function ApplicationContainer(){
                         headerStyle:{
                             backgroundColor:"#ff4d4d"
                         },
+                        headerTitleAlign:"center",
                         headerRight:()=>{
                             return(<ProfileIcon/>)
                         }
@@ -83,8 +84,10 @@ function ApplicationContainer(){
                         title:"My Profile",
                         headerTintColor:"#fff",
                         headerStyle:{
-                            backgroundColor:"#ff4d4d"
+                            backgroundColor:"#ff4d4d",
+                           
                         },
+                        headerTitleAlign:"center",
                     }}
                 />
             </Stack.Navigator>
