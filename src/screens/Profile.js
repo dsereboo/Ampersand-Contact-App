@@ -5,8 +5,9 @@ import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { connect } from "react-redux";
 
-function Profile (){
+function Profile({auth}){
     return(
         <View style={styles.container}>
             <View style={styles.idContainer}>
@@ -20,15 +21,15 @@ function Profile (){
             </View>
             <View style={styles.detailsContainer}>
                 <View style={styles.detail}>
-                    <Feather name="phone" size={26} color="black" />
-                    <Text style={styles.text}>+233 (295) 234 423</Text>
+                    <Feather name="phone" size={24} color="black" />
+                    <Text style={styles.text}>{auth.phoneNum}</Text>
                 </View>
                 <View style={styles.detail}>
-                    <MaterialCommunityIcons name="email-outline" size={26} color="black" />
+                    <MaterialCommunityIcons name="email-outline" size={24} color="black" />
                     <Text style={styles.text}>johnWest@codetrain.com</Text>
                 </View>
                 <View style={styles.detail}>
-                    <SimpleLineIcons name="location-pin" size={26} color="black" />
+                    <SimpleLineIcons name="location-pin" size={24} color="black" />
                     <Text style={styles.text}>Accra, Ghana</Text>
                 </View>
             </View>
@@ -67,4 +68,10 @@ const styles= StyleSheet.create({
     }
 })
 
-export default Profile
+
+const mapStateToProps=(state)=>{
+    return{
+        auth:state.userDetails
+    }
+}
+export default connect(mapStateToProps, null)(Profile)

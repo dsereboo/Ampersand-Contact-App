@@ -1,13 +1,15 @@
-import React from "react"
+import React,{useEffect} from "react"
 import { Image, StyleSheet, Text, View } from "react-native"
+import { connect } from "react-redux"
 
-function IdCard(){
+
+function IdCard({auth}){
     return(
         <View style={styles.container}>
             <Image style={styles.image} source={require("../../assets/image.jpg")}/>
             <View style={styles.textContainer}>
-                <Text style={styles.title}>Joan Shay</Text>
-                <Text style={styles.subText}>Head of Marketing</Text>
+                <Text style={styles.title}>{auth.fullName}</Text>
+                <Text style={styles.subText}>{auth.role}</Text>
             </View>
         </View>
     )
@@ -35,4 +37,9 @@ const styles=StyleSheet.create({
     }
 })
 
-export default IdCard
+const mapStateToProps=(state)=>{
+    return{
+        auth:state.userDetails
+    }
+}
+export default connect(mapStateToProps, null)(IdCard)
