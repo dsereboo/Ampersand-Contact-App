@@ -13,6 +13,10 @@ import Home from "../screens/Home";
 import ProfileIcon from "../components/ProfileIcon";
 import Profile from "../screens/Profile";
 import Logout from "../components/Logout";
+import QrScan from "../screens/QrScan";
+import MemberProfile from "../screens/MemberProfile";
+
+
 
 
 
@@ -27,7 +31,7 @@ const Stack= createStackNavigator()
 function ApplicationContainer({auth}){
     return(
         <NavigationContainer>
-            {(auth.login ?
+            {((auth.login&& auth.userDetails) ?
                 <Stack.Navigator>
                     <Stack.Screen
                         name="Home"
@@ -45,6 +49,13 @@ function ApplicationContainer({auth}){
                         }}
                     />
                     <Stack.Screen
+                        name="QrScan"
+                        component={QrScan}
+                        options={{
+                            headerShown: false,
+                        }}
+                    />
+                    <Stack.Screen
                         name="Profile"
                         component={Profile}
                         options={{
@@ -58,6 +69,19 @@ function ApplicationContainer({auth}){
                             headerRight:()=>{
                                 return(<Logout/>)
                             }
+                        }}
+                    />
+                     <Stack.Screen
+                        name="MemberProfile"
+                        component={MemberProfile}
+                        options={{
+                            title: "Member Profile",
+                            headerTintColor: "#fff",
+                            headerStyle: {
+                                backgroundColor: "#ff4d4d",
+
+                            },
+                            headerTitleAlign: "center",
                         }}
                     />
                 </Stack.Navigator>
