@@ -1,23 +1,45 @@
 import React, { useState } from "react"
 import * as ImagePicker from 'expo-image-picker';
-import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { ImageBackground,ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 import RedButton from "../components/RedButton"
 import { AntDesign } from '@expo/vector-icons';
+import { connect } from "react-redux";
+import { createEmailAccount } from "../redux/actions/authActions";
+import EditPicture from "../components/EditPicture";
 
-function Register(){
+
+
+function Register({signUp}){
     
-    const [image,setImage]=useState(null)
-    const[details, setDetails]=useState({
-        fullname:"",
-        email:"",
+    const [codetrain, setCodetrain]=useState({
+        fullName:"",
         phoneNum:"",
         role:"",
         twitter:"",
         linkedIn:"",
+        image:null,
+    })
+    const [details, setDetails]=useState({
+        email:"",
+        password:"",
     })
 
     const handleChange=(identity,text)=>{ 
         setDetails({...details, [identity]:text})
+    }
+
+    const handleChangeCodetrain=(identity,text)=>{ 
+        setCodetrain({...codetrain, [identity]:text})
+    }
+
+    const handleSubmit=()=>{
+        signUp(details.email, details.password, codetrain)
+    }
+    
+    const newImage=()=>{
+        setCodetrain({...codetrain, image:null})
+        openImagePickerAsync()
+        console.log("open")
     }
 
     let openImagePickerAsync = async () => {
@@ -35,19 +57,21 @@ function Register(){
         });
 
         if (!pickerResult.cancelled) {
-            setImage(pickerResult.uri);
+            setCodetrain({...codetrain, image:pickerResult.uri});
           }
       }
+      console.log(codetrain)
 
-      console.log(image)
-
-   
+    
     return(
         <View style={styles.container}>
              {/* <ScrollView> */}     
-            {image?
+            {codetrain.image?
                 <View style={styles.profilePhotoLoaded}>
-                    <Image style={styles.image} source={{uri:image}} />
+                        
+                    <ImageBackground style={styles.image} source={{uri:codetrain.image}}>
+                         <EditPicture onPress={()=>{openImagePickerAsync()}} />
+                    </ImageBackground>
                 </View>
                 :
                 <TouchableOpacity onPress={openImagePickerAsync} style={styles.profilePhoto}>
@@ -68,8 +92,8 @@ function Register(){
                         name=""
                         placeholder="John West"
                         textAlign="right"
-                        onChangeText={(text) => handleChange("fullName", text)}
-                        value={details.fullName}
+                        onChangeText={(text) => handleChangeCodetrain("fullName", text)}
+                        value={codetrain.fullName}
                      />
                 </View>
                 <View style={styles.inputRow}>
@@ -88,8 +112,8 @@ function Register(){
                         name=""
                         placeholder="+233 290 9020 902"
                         textAlign="right"
-                        onChangeText={(text) => handleChange("phoneNum", text)}
-                        value={details.phoneNum}
+                        onChangeText={(text) => handleChangeCodetrain("phoneNum", text)}
+                        value={codetrain.phoneNum}
                     />
                 </View>
                 <View style={styles.inputRow}>
@@ -98,8 +122,8 @@ function Register(){
                         name=""
                         placeholder="Director of Food Affairs"
                         textAlign="right"
-                        onChangeText={(text) => handleChange("role", text)}
-                        value={details.role}
+                        onChangeText={(text) => handleChangeCodetrain("role", text)}
+                        value={codetrain.role}
                     />
                 </View>
                 <View style={styles.inputRow}>
@@ -108,8 +132,8 @@ function Register(){
                         name=""
                         placeholder="@johnWest"
                         textAlign="right"
-                        onChangeText={(text) => handleChange("twitter", text)}
-                        value={details.twitter}
+                        onChangeText={(text) => handleChangeCodetrain("twitter", text)}
+                        value={codetrain.twitter}
                     />
                 </View>
                 <View style={styles.inputRow}>
@@ -118,14 +142,27 @@ function Register(){
                         name=""
                         placeholder="johnWest@codetrain.com"
                         textAlign="right"
-                        onChangeText={(text) => handleChange("linkedIn", text)}
-                        value={details.linkedIn}
+                        onChangeText={(text) => handleChangeCodetrain("linkedIn", text)}
+                        value={codetrain.linkedIn}
+                    />
+                </View>
+                <View style={styles.inputRow}>
+                    <Text>Password</Text>
+                    <TextInput 
+                        secureTextEntry={true}
+                        placeholder="johnWest@codetrain.com"
+                        textAlign="right"
+                        onChangeText={(text) => handleChange("password", text)}
+                        value={details.password}
                     />
                 </View>
                 </ScrollView>
             </View>
             <View style={styles.buttonContainer}>
-                <RedButton text="REGISTER" />
+                <RedButton 
+                     text="REGISTER"
+                     onPress={handleSubmit}
+                 />
             </View>
             {/* </ScrollView> */}
         </View>
@@ -145,10 +182,13 @@ const styles=StyleSheet.create({
     },
     profilePhotoLoaded:{
         flex:3,
+        backgroundColor: 'rgba(0, 0, 0, 1.0)'
     },
     image:{
         width:"100%",
         height:"100%",
+        opacity:0.6
+        // shadowOpacity:3,
     },
     profileText:{
         color:"#ff4d4d",
@@ -176,4 +216,8 @@ const styles=StyleSheet.create({
     }
 })
 
-export default Register
+const mapDispatchToProps={
+    signUp: createEmailAccount,
+}
+
+export default connect(null,mapDispatchToProps)(Register)
