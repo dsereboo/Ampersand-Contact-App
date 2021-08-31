@@ -2,12 +2,12 @@ import React from "react"
 import { StyleSheet, Text, View } from "react-native"
 import QrActionButton from "./QrActionButton"
 
-function QrActionCard(){
+function QrActionCard({nav}){
     return(
         <View style={styles.container}>
             <View style={styles.content}>
                 <Text style={styles.text}>Want to add a new connection?</Text>
-                <QrActionButton />
+                <QrActionButton nav={nav} />
             </View>
         </View>
     )
