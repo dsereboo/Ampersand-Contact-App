@@ -21,7 +21,7 @@ function WelcomeGuide(){
                     </Text>
                 </View>
                 <View style={styles.indicatorContainer}>
-                    <RedUnderlineIndicator nav="" text="REGISTER" />
+                    <RedUnderlineIndicator nav="Register" text="REGISTER" />
                     <RedUnderlineIndicator nav="Login" text="SIGN IN" />
                 </View>
             </View>

@@ -3,8 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { connect } from "react-redux";
 
-
-
 import WelcomeGuide from "../screens/WelcomeGuide";
 import WelcomeHome from "../screens/WelcomeHome";
 import Login from "../screens/Login";
@@ -15,16 +13,6 @@ import Profile from "../screens/Profile";
 import Logout from "../components/Logout";
 import QrScan from "../screens/QrScan";
 import MemberProfile from "../screens/MemberProfile";
-
-
-
-
-
-
-
-
-
-
 
 const Stack= createStackNavigator()
 
@@ -113,7 +101,8 @@ function ApplicationContainer({auth}){
                             headerTintColor: "#fff",
                             headerStyle: {
                                 backgroundColor: "#ff4d4d"
-                            }
+                            },
+                            headerTitleAlign: "center",
                         }}
                     />
                     <Stack.Screen

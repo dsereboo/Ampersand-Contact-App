@@ -20,7 +20,7 @@ const styles=StyleSheet.create({
         alignItems:"center"
     },
     horizontalLine:{
-        width:90,
+        width:"100%",
         height:2,
         backgroundColor:"#e60000",
     },
